@@ -23,6 +23,6 @@ func main() {
 		fmt.Println("all unique")
 	}
 
-	count := lib.CountingSortByDigit([]int{10, 30, 23, 453, 2, 123}, 1)
+	count := lib.RadixSort([]int{10, 30, 23, 453, 2, 123})
 	fmt.Println(count)
 }

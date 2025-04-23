@@ -12,7 +12,14 @@ func CountingSortByDigit(nums []int, place int) []int {
 		count[i] += count[i-1]
 	}
 
-	return count
+	output := make([]int, len(nums))
+	for i := len(nums) - 1; i >= 0; i-- {
+		digit := GetDigit(nums[i], place)
+		output[count[digit]-1] = nums[i]
+		count[digit]--
+	}
+
+	return output
 }
 
 func GetDigit(num, place int) int {
@@ -28,4 +35,13 @@ func GetMax(nums []int) int {
 		}
 	}
 	return largest
+}
+
+func RadixSort(nums []int) []int {
+
+	max := GetMax(nums)
+	for place := 1; max/place > 0; place *= 10 {
+		nums = CountingSortByDigit(nums, place)
+	}
+	return nums
 }
