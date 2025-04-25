@@ -1,4 +1,4 @@
-package lib
+package sort
 
 func CountingSortByDigit(nums []int, place int) []int {
 
