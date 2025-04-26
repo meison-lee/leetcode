@@ -5,14 +5,23 @@ import (
 	"leetcode/lib/sort"
 )
 
+// If we use merge sort, it will cost
+// time  O(nlogn)
+// space O(n) -> from merge sort
+// If we use hashSet to implement, we would only need
+// time  O(n)
+// space O(n)
 func containDuplicate(nums []int) bool {
 
-	nums = sort.MergeSort(nums)
-	for i := range nums[:len(nums)-1] {
-		if nums[i] == nums[i+1] {
-			return true
+	hash := make(map[int]bool)
+	for _, num := range nums {
+		if _, ok := hash[num]; !ok {
+			hash[num] = true
+			continue
 		}
+		return true
 	}
+
 	return false
 }
 
