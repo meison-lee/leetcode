@@ -25,3 +25,19 @@ func numEquivDominoPairs(dominoes [][]int) int {
 	}
 	return res
 }
+
+func optimize(dominoes [][]int) int {
+
+	count := [100]int{}
+	res := 0
+	for _, dom := range dominoes {
+		a, b := dom[0], dom[1]
+		if a > b {
+			a, b = b, a
+		}
+
+		res += count[10*a+b]
+		count[10*a+b]++
+	}
+	return res
+}
