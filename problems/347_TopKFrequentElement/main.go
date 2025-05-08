@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"leetcode/lib/heap"
 )
 
 func topKFrequent(nums []int, k int) []int {
@@ -11,23 +10,24 @@ func topKFrequent(nums []int, k int) []int {
 		hash[v]++
 	}
 
-	fmt.Println(hash)
-	h := &heap.MinHeap{}
-	// heap.Init(h)
-
-	for _, v := range hash {
-		if h.Len() < k {
-			h.Push(v)
-		} else if v > (*h)[0] {
-			h.Pop()
-			h.Push(v)
-		}
+	buckets := make([][]int, len(nums)+1)
+	for i, v := range hash {
+		buckets[v] = append(buckets[v], i)
 	}
 
-	return h.HeapToInt()
+	result := []int{}
+	for i := len(buckets) - 1; i >= 0; i-- {
+		for _, v := range buckets[i] {
+			result = append(result, v)
+			if len(result) == k {
+				return result
+			}
+		}
+	}
+	return result
 }
 
 func main() {
-	result := topKFrequent([]int{1, 1, 1, 2, 2, 3, 4, 4, 4}, 3)
+	result := topKFrequent([]int{1, 1, 1, 7, 7, 5, 4, 4, 4}, 3)
 	fmt.Println(result)
 }
